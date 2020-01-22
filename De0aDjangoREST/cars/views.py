@@ -10,8 +10,9 @@ class BrandListView(generics.ListAPIView):
     permission_classes = ()
     queryset = Brand.objects.all()
     pagination_class = SmallResultsSetPagination
-    filter_backends = (filters.SearchFilter,  )
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter, )
     search_fields = ('name', )
+    ordering_fields = ('name', )
 
 
 class BrandCreateView(generics.CreateAPIView):
