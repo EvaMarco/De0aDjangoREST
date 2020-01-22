@@ -1,4 +1,6 @@
 from rest_framework import filters, generics
+from rest_framework.permissions import IsAuthenticated
+
 
 from .models import Brand
 from .paginations import SmallResultsSetPagination
@@ -17,7 +19,7 @@ class BrandListView(generics.ListAPIView):
 
 class BrandCreateView(generics.CreateAPIView):
     serializer_class = BrandSerializer
-    permission_classes = ()
+    permission_classes = (IsAuthenticated, )
 
 
 class BrandRetrieveView(generics.RetrieveAPIView):
@@ -29,13 +31,13 @@ class BrandRetrieveView(generics.RetrieveAPIView):
 
 class BrandUpdateView(generics.UpdateAPIView):
     serializer_class = BrandSerializer
-    permission_classes = ()
+    permission_classes = (IsAuthenticated, )
     queryset = Brand.objects.all()
     lookup_field = 'id'
 
 
 class BrandDestroyView(generics.DestroyAPIView):
     serializer_class = BrandSerializer
-    permission_classes = ()
+    permission_classes = (IsAuthenticated, )
     queryset = Brand.objects.all()
     lookup_field = 'id'
