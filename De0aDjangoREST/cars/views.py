@@ -1,37 +1,39 @@
-from rest_framework.generics import (CreateAPIView, DestroyAPIView, ListAPIView,
-                                     RetrieveAPIView, UpdateAPIView)
+from rest_framework import filters, generics
 
 from .models import Brand
 from .paginations import SmallResultsSetPagination
 from .serializers import BrandSerializer
 
 
-class BrandListView(ListAPIView):
+class BrandListView(generics.ListAPIView):
     serializer_class = BrandSerializer
     permission_classes = ()
     queryset = Brand.objects.all()
     pagination_class = SmallResultsSetPagination
+    filter_backends = (filters.SearchFilter,  )
+    search_fields = ('name', )
 
-class BrandCreateView(CreateAPIView):
+
+class BrandCreateView(generics.CreateAPIView):
     serializer_class = BrandSerializer
     permission_classes = ()
 
 
-class BrandRetrieveView(RetrieveAPIView):
-    serializer_class = BrandSerializer
-    permission_classes = ()
-    queryset = Brand.objects.all()
-    lookup_field = 'id'
-
-
-class BrandUpdateView(UpdateAPIView):
+class BrandRetrieveView(generics.RetrieveAPIView):
     serializer_class = BrandSerializer
     permission_classes = ()
     queryset = Brand.objects.all()
     lookup_field = 'id'
 
 
-class BrandDestroyView(DestroyAPIView):
+class BrandUpdateView(generics.UpdateAPIView):
+    serializer_class = BrandSerializer
+    permission_classes = ()
+    queryset = Brand.objects.all()
+    lookup_field = 'id'
+
+
+class BrandDestroyView(generics.DestroyAPIView):
     serializer_class = BrandSerializer
     permission_classes = ()
     queryset = Brand.objects.all()
